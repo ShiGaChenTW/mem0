@@ -8,7 +8,7 @@ COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 RUN \
   if [ -f yarn.lock ]; then yarn --frozen-lockfile --network-timeout 600000; \
   elif [ -f package-lock.json ]; then npm ci; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && echo "onlyBuiltDependencies[]=sharp\nonlyBuiltDependencies[]=unrs-resolver" >> .npmrc && pnpm i; \
+  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && printf 'onlyBuiltDependencies[]=sharp\nonlyBuiltDependencies[]=unrs-resolver\n' >> .npmrc && pnpm i; \
   else npm install; \
   fi
 
